@@ -36,13 +36,12 @@ def talk_to_me(bot, update):
 #       передаем название планеты в качестве атрибута ephem и затем получаем кортеж ('краткое название', 'полное название'')
         answer_text = ephem.constellation(getattr(ephem, planet_name)(today))
         print(answer_text)
-        update.message.reply_text(answer_text)
+        update.message.reply_text('{0} in {1}'.format(planet_name, answer_text[1]))
     except (TypeError, AttributeError):
         update.message.reply_text('Похоже что вы ввели данные в неверном формате попробуйте еще раз')
 
-
 def main():
-    mybot = Updater(settings.API_KEY, request_kwargs=settings.PROXY1)
+    mybot = Updater(settings.API_KEY, request_kwargs=settings.PROXY2)
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler('start', greet_user))
     dp.add_handler(CommandHandler('planet', user_planet))
